@@ -22,7 +22,7 @@ function _createModal(options) {
     document.body.appendChild(modal);
     return modal;
 }
-
+// СОЗДАЙ ВЕТКУ!!!!!==========================
 /*
 * Title: string
 * Closable: boolean
