@@ -1,4 +1,4 @@
-function _createModal(title = 'Default title', closable = true, content = `<p>Default content</p>`) {
+function _createModal(title = 'Default title', closable = true, content = `<p>Default content</p>`, width = '400px') {
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
     
@@ -22,6 +22,10 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
     `)
 
     document.body.appendChild(modal);
+
+    const modalWindow = document.querySelector('.modal-window');
+    modalWindow.style.width = width;
+
     if(!closable) {
         const modalClose = document.querySelector('.modal-close');
         modalClose.classList.add('unclosable');
@@ -47,9 +51,9 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
 *-----------------------
 * animate.css
 */
-$.modal = function(title, closable, content) {
+$.modal = function(title, closable, content, width) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(title, closable, content);
+    const $modal = _createModal(title, closable, content, width);
     let closing = false;
 
     return {
