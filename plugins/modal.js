@@ -1,11 +1,11 @@
-function _createModal(options) {
+function _createModal(title = 'Default title') {
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay">
             <div class="modal-window">
                 <div class="modal-header">
-                    <span class="modal-title">Modal title</span>
+                    <span class="modal-title">${title}</span>
                     <span class="modal-close">&times;</span>
                 </div>
                 <div class="modal-body">
@@ -24,7 +24,7 @@ function _createModal(options) {
 }
 // СОЗДАЙ ВЕТКУ!!!!!==========================
 /*
-* Title: string
+* Title: string    + 
 * Closable: boolean
 * Content: string
 * Width: string ('400px')
@@ -37,9 +37,9 @@ function _createModal(options) {
 *-----------------------
 * animate.css
 */
-$.modal = function(options) {
+$.modal = function(title) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(options);
+    const $modal = _createModal(title);
     let closing = false;
 
     return {
