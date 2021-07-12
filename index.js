@@ -1,1 +1,1 @@
-const modal = $.modal('Users title', false);
+const modal = $.modal('Users title', false, usersContent);

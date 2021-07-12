@@ -1,4 +1,4 @@
-function _createModal(title = 'Default title', closable = true) {
+function _createModal(title = 'Default title', closable = true, content = `<p>Default content</p>`) {
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
     
@@ -26,14 +26,17 @@ function _createModal(title = 'Default title', closable = true) {
         const modalClose = document.querySelector('.modal-close');
         modalClose.classList.add('unclosable');
     }
-    
+    // Adding user's content
+    const modalContent = document.querySelector('.modal-body');
+    modalContent.innerHTML = content;
+
     return modal;
 }
 // СОЗДАЙ ВЕТКУ!!!!!==========================
 /*
-* Title: string    + 
-* Closable: boolean
-* Content: string
+* Title: string   + 
+* Closable: boolean   +
+* Content: html string   +
 * Width: string ('400px')
 * Destroy(): void
 * Close modal window with cross or clicking on overlay
@@ -44,9 +47,9 @@ function _createModal(title = 'Default title', closable = true) {
 *-----------------------
 * animate.css
 */
-$.modal = function(title, closable) {
+$.modal = function(title, closable, content) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(title, closable);
+    const $modal = _createModal(title, closable, content);
     let closing = false;
 
     return {
