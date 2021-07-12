@@ -41,8 +41,8 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
 * Title: string   + 
 * Closable: boolean   +
 * Content: html string   +
-* Width: string ('400px')
-* Destroy(): void
+* Width: string ('400px')   +
+* Destroy(): void   +
 * Close modal window with cross or clicking on overlay
 * setContent(html: string): void | public method
 * onClose(): void
@@ -59,6 +59,7 @@ $.modal = function(title, closable, content, width) {
     return {
         open() {
             !closing && $modal.classList.add('open');
+            $modal.id = 'modal';
         },
         close() {
             closing = true;
@@ -69,6 +70,10 @@ $.modal = function(title, closable, content, width) {
                 closing = false;
             }, ANIMATION_SPEED);
         },
-        destroy() {}
+        destroy() {
+            const modal = document.getElementById('modal');
+            modal.remove();
+            console.log('reomved');
+        }
     }
 }
