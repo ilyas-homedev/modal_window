@@ -1,17 +1,17 @@
-function _createModal(title = 'Default title', closable = true, content = `<p>Default content</p>`, width = '400px') {
+function _createModal(options) {
+    const DEFAULT_WIDTH = '400px';
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
     
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay">
-            <div class="modal-window">
+            <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
                 <div class="modal-header">
-                    <span class="modal-title">${title}</span>
-                    <span class="modal-close">&times;</span>
+                    <span class="modal-title">${options.title || 'Some title'}</span>
+                    ${options.closable ? `<span class="modal-close">&times;</span>` : ''}
                 </div>
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit.</p>
-                    <p>Lorem ipsum dolor sit.</p>
+                    ${options.content || 'Some content'}
                 </div>
                 <div class="modal-footer">
                     <button>Ok</button>
@@ -22,18 +22,6 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
     `)
 
     document.body.appendChild(modal);
-
-    const modalWindow = document.querySelector('.modal-window');
-    modalWindow.style.width = width;
-
-    if(!closable) {
-        const modalClose = document.querySelector('.modal-close');
-        modalClose.classList.add('unclosable');
-    }
-    // Adding user's content
-    const modalContent = document.querySelector('.modal-body');
-    modalContent.innerHTML = content;
-
     return modal;
 }
 // СОЗДАЙ ВЕТКУ!!!!!==========================
@@ -51,9 +39,9 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
 *-----------------------
 * animate.css
 */
-$.modal = function(title, closable, content, width) {
+$.modal = function(options) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(title, closable, content, width);
+    const $modal = _createModal(options);
     let closing = false;
 
     return {
