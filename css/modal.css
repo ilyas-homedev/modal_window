@@ -48,7 +48,6 @@
 }
 
 .modal-window {
-    width: 600px;
     border-radius: 5px;
     background: #fff;
     margin: 0 auto;
@@ -69,6 +68,10 @@
 
 .modal-close {
     cursor: pointer;
+}
+
+.modal-close.unclosable {
+    display: none;
 }
 
 .modal-body {
