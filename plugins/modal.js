@@ -1,6 +1,7 @@
-function _createModal(title = 'Default title') {
+function _createModal(title = 'Default title', closable = true) {
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
+    
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay">
             <div class="modal-window">
@@ -19,7 +20,13 @@ function _createModal(title = 'Default title') {
             </div>
         </div>
     `)
+
     document.body.appendChild(modal);
+    if(!closable) {
+        const modalClose = document.querySelector('.modal-close');
+        modalClose.classList.add('unclosable');
+    }
+    
     return modal;
 }
 // СОЗДАЙ ВЕТКУ!!!!!==========================
@@ -37,9 +44,9 @@ function _createModal(title = 'Default title') {
 *-----------------------
 * animate.css
 */
-$.modal = function(title) {
+$.modal = function(title, closable) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(title);
+    const $modal = _createModal(title, closable);
     let closing = false;
 
     return {

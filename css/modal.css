@@ -71,6 +71,10 @@
     cursor: pointer;
 }
 
+.modal-close.unclosable {
+    display: none;
+}
+
 .modal-body {
     padding: 10px;
 }
