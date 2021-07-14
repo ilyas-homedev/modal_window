@@ -3,11 +3,11 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
     modal.classList = 'vmodal';
     
     modal.insertAdjacentHTML('afterbegin', `
-        <div class="modal-overlay">
+        <div class="modal-overlay" data-close="true">
             <div class="modal-window">
                 <div class="modal-header">
                     <span class="modal-title">${title}</span>
-                    <span class="modal-close">&times;</span>
+                    <span class="modal-close" data-close="true">&times;</span>
                 </div>
                 <div class="modal-body">
                     <p>Lorem ipsum dolor sit.</p>
@@ -43,7 +43,7 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
 * Content: html string   +
 * Width: string ('400px')   +
 * Destroy(): void   +
-* Close modal window with cross or clicking on overlay
+* Close modal window with cross or clicking on overlay   +
 * setContent(html: string): void | public method
 * onClose(): void
 * onOpen(): 
@@ -56,7 +56,7 @@ $.modal = function(title, closable, content, width) {
     const $modal = _createModal(title, closable, content, width);
     let closing = false;
 
-    return {
+    const modal = {
         open() {
             !closing && $modal.classList.add('open');
             $modal.id = 'modal';
@@ -76,4 +76,12 @@ $.modal = function(title, closable, content, width) {
             console.log('reomved');
         }
     }
+
+    $modal.addEventListener('click', function(event) {
+        if(event.target.dataset.close) {
+            modal.close();
+        }
+    })
+
+    return modal;
 }
