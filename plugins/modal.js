@@ -55,9 +55,13 @@ $.modal = function(title, closable, content, width) {
     const ANIMATION_SPEED = 200;
     const $modal = _createModal(title, closable, content, width);
     let closing = false;
+    let destroyed = false;
 
     const modal = {
         open() {
+            if(destroyed) {
+                console.log('impossible, modal destroyed!');
+            }
             !closing && $modal.classList.add('open');
             $modal.id = 'modal';
         },
@@ -69,19 +73,22 @@ $.modal = function(title, closable, content, width) {
                 $modal.classList.remove('hide');
                 closing = false;
             }, ANIMATION_SPEED);
-        },
-        destroy() {
-            const modal = document.getElementById('modal');
-            modal.remove();
-            console.log('reomved');
         }
     }
 
-    $modal.addEventListener('click', function(event) {
+    const listener = event => {
         if(event.target.dataset.close) {
             modal.close();
         }
-    })
+    }
 
-    return modal;
+    $modal.addEventListener('click', listener);
+
+    return Object.assign(modal, {
+        destroy() {
+            $modal.remove();
+            $modal.removeEventListener('click', listener);
+            destroyed = true;
+        }
+    });
 }
