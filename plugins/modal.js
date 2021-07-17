@@ -25,7 +25,7 @@ function _createModalFooter(buttons = []) {
     return wrap;
 }
 
-function _createModal(title = 'Default title', closable = true, content = `<p>Default content</p>`, width = '400px', footerButtons) {
+function _createModal(options) {
     const modal = document.createElement('div');
     modal.classList = 'vmodal';
     
@@ -33,7 +33,7 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
         <div class="modal-overlay" data-close="true">
             <div class="modal-window">
                 <div class="modal-header">
-                    <span class="modal-title">${title}</span>
+                    <span class="modal-title">${options.title}</span>
                     <span class="modal-close" data-close="true">&times;</span>
                 </div>
                 <div class="modal-body" data-content>
@@ -43,20 +43,20 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
             </div>
         </div>
     `)
-    const footer = _createModalFooter(footerButtons);
+    const footer = _createModalFooter(options.footerButtons);
     footer.appendAfter(modal.querySelector('[data-content]'));
     document.body.appendChild(modal);
 
     const modalWindow = document.querySelector('.modal-window');
-    modalWindow.style.width = width;
+    modalWindow.style.width = options.width;
 
-    if(!closable) {
+    if(!options.closable) {
         const modalClose = document.querySelector('.modal-close');
         modalClose.classList.add('unclosable');
     }
     // Adding user's content
     const modalContent = document.querySelector('.modal-body');
-    modalContent.innerHTML = content;
+    modalContent.innerHTML = options.content;
 
     return modal;
 }
@@ -68,16 +68,16 @@ function _createModal(title = 'Default title', closable = true, content = `<p>De
 * Width: string ('400px')   +
 * Destroy(): void   +
 * Close modal window with cross or clicking on overlay   +
-* setContent(html: string): void | public method
+* setContent(html: string): void | public method   +
 * onClose(): void
 * onOpen(): 
 * beforeClose()
 *-----------------------
 * animate.css
 */
-$.modal = function(title, closable, content, width, footerButtons) {
+$.modal = function(options) {
     const ANIMATION_SPEED = 200;
-    const $modal = _createModal(title, closable, content, width, footerButtons);
+    const $modal = _createModal(options);
     let closing = false;
     let destroyed = false;
 
