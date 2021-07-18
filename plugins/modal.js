@@ -37,8 +37,7 @@ function _createModal(options) {
                     <span class="modal-close" data-close="true">&times;</span>
                 </div>
                 <div class="modal-body" data-content>
-                    <p>Lorem ipsum dolor sit.</p>
-                    <p>Lorem ipsum dolor sit.</p>
+                    ${options.content}
                 </div>
             </div>
         </div>
@@ -55,8 +54,8 @@ function _createModal(options) {
         modalClose.classList.add('unclosable');
     }
     // Adding user's content
-    const modalContent = document.querySelector('.modal-body');
-    modalContent.innerHTML = options.content;
+    // const modalContent = document.querySelector('.modal-body');
+    // modalContent.innerHTML = options.content;
 
     return modal;
 }

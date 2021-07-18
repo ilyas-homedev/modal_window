@@ -4,8 +4,8 @@ const fruits = [
     {id: 3, title: 'Mango', price: 40, img: 'https://a.allegroimg.com/s512/11d3b2/2c069bd0495d9f74579eea104ce9/Mango-Dojrzale-z-drzewa-BY-AIR-PERU'}
 ]
 
-const modal = $.modal({
-    titlse: "Users title",
+let modalInfo = {
+    title: "Users title",
     closable: true,
     content: `
     <h1>Ilyas Ilyasov</h1>
@@ -22,4 +22,67 @@ const modal = $.modal({
             modal.close();
         }}
     ]
-})
+}
+
+// Mock of fruit card
+const toHTML = fruit => `
+<div class="col">
+    <div class="card">
+        <img src="${fruit.img}" style="height: 300px;" class="card-img-top" alt="${fruit.title}">
+        <div class="card-body">
+            <h5 class="card-title">${fruit.title}</h5>
+            <a href="#" data-seeprice="true" class="btn btn-primary">See price</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
+`
+
+
+// Function for rendering list of fruits
+function render() {
+    const html = fruits.map((fruit) => toHTML(fruit)).join('');
+    document.querySelector('#fruits').innerHTML = html;
+}
+
+render();
+
+
+
+
+
+
+
+
+// Detecting card in the DOM
+// const cards = document.querySelectorAll('.card');
+// cards.forEach(card => {
+//     const cardTitle = card.querySelector('.card-title');
+//     const seePrice = card.querySelector('[data-seeprice]');
+
+
+//     seePrice.addEventListener('click', function() {
+//         fruits.forEach(fruit => {
+//             console.log(fruit.id)
+//             if(cardTitle.textContent === fruit.title) {
+//                 modalInfo.title = fruit.title;
+//                 modalInfo.closable = false;
+//                 modalInfo.content = `<h2>Price of ${fruit.title}: ${fruit.price}$</h2>`;
+//                 modalInfo.width = '400px';
+//                 modalInfo.footerButtons = [
+//                     {text: 'Ok', type: 'primary', handler() {
+//                         console.log('primary btm clicked!');
+//                         modal.close();
+//                     }}
+//                 ];
+//                 console.log(modalInfo);
+//             }
+//         })
+//         $.modal(modalInfo);
+
+//         modal.open();
+//     })
+// });
+
+
+const modal = $.modal(modalInfo);
