@@ -5,20 +5,11 @@ const fruits = [
 ]
 
 let modalInfo = {
-    title: "Users title",
+    title: "Price",
     closable: true,
-    content: `
-    <h1>Ilyas Ilyasov</h1>
-    <p>Hello World!</p>
-    `,
     width: '600px',
     footerButtons: [
         {text: 'Ok', type: 'primary', handler() {
-            console.log('primary btm clicked!');
-            modal.close();
-        }},
-        {text: 'Cancel', type: 'danger', handler() {
-            console.log('danger btm clicked!');
             modal.close();
         }}
     ]
@@ -31,7 +22,7 @@ const toHTML = fruit => `
         <img src="${fruit.img}" style="height: 300px;" class="card-img-top" alt="${fruit.title}">
         <div class="card-body">
             <h5 class="card-title">${fruit.title}</h5>
-            <a href="#" data-seeprice="true" class="btn btn-primary">See price</a>
+            <a href="#" data-btn="price" data-id="${fruit.id}" class="btn btn-primary">See price</a>
             <a href="#" class="btn btn-danger">Delete</a>
         </div>
     </div>
@@ -86,3 +77,20 @@ render();
 
 
 const modal = $.modal(modalInfo);
+
+document.addEventListener('click', function(event) {
+    event.preventDefault();
+    const btnType = event.target.dataset.btn;
+    const id = +event.target.dataset.id;
+
+
+    if(btnType === "price") {
+        const fruit = fruits.find(f => f.id === id);
+
+        modal.setContent(`
+        <p>Price of ${fruit.title}: <strong>${fruit.price}$</strong></p>
+        `)
+
+        modal.open();
+    }
+})
